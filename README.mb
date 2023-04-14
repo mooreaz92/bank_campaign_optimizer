@@ -1,0 +1,120 @@
+# **Dollars and Sense: Optimizing Bank Marketing Campaigns**
+<div style="text-align:center">
+    <img src="Images/call_center_banner.png" style="width: 40%; border-radius: 10px;"/>
+</div>
+## **Table of Contents**
+##### *Project Overview*
+1. [Introduction](#introduction)
+2. [Data](#data)
+##### *Data Overview and Cleaning*
+3. [Exploratory Data Analysis: Summary](#exploratory-data-analysis-summary)
+4. [Data Preprocessing](#Data-Preprocessing)
+##### *Modeling*
+5. [Baseline Model](#scoring-functions-and-baseline-model)
+6. [Final Modeling](#final-modeling)
+##### *Insights and Deployment*
+7. [Feature Evaluation](#feature-evaluation)
+8. [Model Evaluation](#model-evaluation)
+9. [App Development and Deployment](#app-development)
+##### *Conclusion*
+10. [Conclusion](#conclusion)
+
+<a id="introduction"></a>
+
+## **Introduction**
+
+This machine learning project does a deep dive into a bank marketing dataset to understand what featuers are most important to a marketing campaign's success, and then uses that uderstanding to build an optimized model and deploy that model to end users
+
+The project has the following objectives:
+
+1. **Determine feature importance**
+    - Find out which features contribute the most to customer acquisition
+<br>
+</br>
+2. **Build an optimized model**
+    - To build a model that can predict whether a customer will subscribe to a term deposit or not, and
+<br>
+</br>
+3. **Develop a no code app**
+    - To be used my marketing teams to determine the probability an interaction will result in a customer subscribing to a term deposit
+
+<a id='Data'></a>
+
+## **Data**
+
+##### <ins>*Overview*</ins>
+
+This [dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing) is from the UCI Machine Learning Repository and contains data from a Portuguese bank's marketing campaign.
+
+The data was collected from May 2008 to November 2010
+
+High level, dataset includes:
+
+- 45,307 rows, each representing a customer interaction, and
+- 21 feature columns, of which:
+    - 11 are categorical features (such as customer education), and
+    - 10 are numerical features (such as customer age)
+
+The target variable is the "y" column, which indicates whether a customer subscribed to a term deposit or not.
+
+##### <ins>*Additional Considerations*</ins>
+Note that missing data in this dataset is denoted in two ways per the dataset documentation:
+- "unknown" for categorical features, and
+- "999" for numerical features 
+
+
+
+We will handle these missing values in the **Data Preprocessing** section but have special considerations for visualizing them in the exploratory data analysis code below
+
+In summary, we found the following insights as a result of our exploratory data analysis:
+
+##### <ins>*High Level Data Findings*</ins>
+
+- The dataset has features which can broadly be categorized as:
+
+    - Client data *(such as age, job, marital status, etc.)*
+    - Campaign data *(such as number of contacts, days since last contact, etc.)*, and
+    - External data *(such as consumer price index, employment variation rate, etc.)*
+<br>
+</br>
+- Most of the data is categorical, with only 10% of the columns being numerical
+
+- The dataset is mostly complete, with only 1% of records having missing data excluding the default and pcontact category. Of that 1%, half have one missing field and most others have two. Records missing more than two fields are rare
+
+    - Note: the 'default' feature is considered seperate from the other features when evaluating missing data because this category likely extends to if the customer has defaulted credit **anywhere**, not just with the bank running the campaign. This is likely a very sensative topic and the call center agents may not have been advised to ask about it. This is likely why the default category contains by far the most 'unknown' values
+    <br>
+    </br>
+    -Note: the 'pcontact' feature is considered seperate from the other features when evaluating missing data because most customers contacted have not been contacted before. This is likely why the pcontact category contains by far the most 'unknown' values
+
+##### <ins>*Feature Findings*</ins>
+
+- The average age is around 30, with the majority of customers being between 30 and 40 years old
+<br>
+</br>
+- The majority of customers are highly educated and have families
+<br>
+</br>
+- The the job feature is very vague, with most customers having an 'admin' or 'blue collar' job
+<br>
+</br>
+- The majority of customers have not been contacted before, and the majority of customers have been contacted less than 5 times
+<br>
+</br>
+- The majority of customers have not been contacted in the last 3 months, and the majority of customers have been contacted less than 10 days ago
+
+##### <ins>*Target Variable Findings*</ins>
+
+- The target variable is imbalanced, with only 11% of customers subscribing to a term deposit
+<br>
+</br>
+- Customers who subscribe to a term deposit are generally older, have higher education, and have higher incomes
+<br>
+</br>
+- Customers who subscribe to a term deposit are generally contacted more frequently, and have been contacted more recently
+<br>
+</br>
+- Customers who have subscribed to a term deposit in the past are more likely to subscribe again as indicated by the correlation between the 'poutcome' and 'y' features
+<br>
+</br>
+- An interesting finding is that EURIBOR 3 month rate trends lower for customers who subscribe to a term deposit. We would expect the opposite, as a lower rate would mean a lower return on investment for the bank. This could be due to the fact that the bank is offering a higher rate to customers who subscribe to a term deposit, or it could be due to the fact that the bank is offering a lower rate to customers who do not subscribe to a term deposit. This is something to keep in mind when modeling
+
