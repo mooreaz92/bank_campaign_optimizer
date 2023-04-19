@@ -14,16 +14,18 @@
 2. [Data](#data)
 ##### *Data Overview and Cleaning*
 3. [Exploratory Data Analysis: Summary](#exploratory-data-analysis-summary)
-4. [Data Preprocessing: Overview](#Data-Preprocessing)
+4. [Data Preprocessing: Overview](#data-preprocessing)
 ##### *Modeling*
-5. [Baseline Model](#scoring-functions-and-baseline-model)
+5. [Baseline Model](#baseline-model)
 6. [Final Modeling](#final-modeling)
 ##### *Insights and Deployment*
 7. [Feature Evaluation](#feature-evaluation)
 8. [Model Evaluation](#model-evaluation)
 9. [App Development and Deployment](#app-development)
 ##### *Conclusion*
-10. [Conclusion](#conclusion)
+10. [Conclusion](#finale)
+11. [Repository Structure](#structure)
+
 <br>
 </br>
 
@@ -39,24 +41,21 @@ The project has the following objectives:
 
 1. **Determine feature importance**
     - Find out which features contribute the most to customer acquisition
-<br>
-</br>
 2. **Build an optimized model**
     - To build a model that can predict whether a customer will subscribe to a term deposit or not, and
-<br>
-</br>
 3. **Develop a no code app**
     - To be used my marketing teams to determine the probability an interaction will result in a customer subscribing to a term deposit
 
 <a id='Data'></a>
-
 <div style="text-align:center">
     <img src="Images/fin_datas.png" style="width: 45%; border-radius: 10px;"/>
 </div>
 
 ## **Data**
+<br>
 
 ##### <ins>*Overview*</ins>
+<br>
 
 This [dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing) is from the UCI Machine Learning Repository and contains data from a Portuguese bank's marketing campaign.
 
@@ -72,6 +71,8 @@ High level, dataset includes:
 The target variable is the "y" column, which indicates whether a customer subscribed to a term deposit or not.
 
 ##### <ins>*Additional Considerations*</ins>
+<br>
+
 Note that missing data in this dataset is denoted in two ways per the dataset documentation:
 - "unknown" for categorical features, and
 - "999" for numerical features 
@@ -80,11 +81,16 @@ Note that missing data in this dataset is denoted in two ways per the dataset do
 
 We will handle these missing values in the **Data Preprocessing** section but have special considerations for visualizing them in the exploratory data analysis code below
 
+<br>
+</br>
+
 <div style="text-align:center">
     <img src="Images/results_analysis.jpg" style="width: 30%; border-radius: 10px;"/>
 </div>
 
 <a id='Exploratory Data Analysis: Summary'></a>
+<br>
+</br>
 
 ## **Exploratory Data Analysis: Illustrations and Summary**
 
@@ -94,7 +100,7 @@ The following are some visualizations taken from the index.ipynb file. These wer
 <br>
 </br>
 <div style="text-align:center">
-    <img src="Charts/missing.png" style="width: 95%; border-radius: 10px;"/>
+    <img src="Charts/missing.png" style="width: 75%; border-radius: 10px;"/>
 </div>
 <br>
 </br>
@@ -121,7 +127,7 @@ The following are some visualizations taken from the index.ipynb file. These wer
 <br>
 </br>
 <div style="text-align:center">
-    <img src="Charts/target_dist.png" style="width: 95%; border-radius: 10px;"/>
+    <img src="Charts/target_dist.png" style="width: 75%; border-radius: 10px;"/>
 </div>
 <br>
 </br>
@@ -148,7 +154,7 @@ The following are some visualizations taken from the index.ipynb file. These wer
 <br>
 </br>
 <div style="text-align:center">
-    <img src="Charts/target_corr.png" style="width: 95%; border-radius: 10px;"/>
+    <img src="Charts/target_corr.png" style="width: 60%; border-radius: 10px;"/>
 </div>
 <br>
 </br>
@@ -157,7 +163,7 @@ The following are some visualizations taken from the index.ipynb file. These wer
 <br>
 </br>
 <div style="text-align:center">
-    <img src="Charts/feature_corr.png" style="width: 95%; border-radius: 10px;"/>
+    <img src="Charts/feature_corr.png" style="width: 50%; border-radius: 10px;"/>
 </div>
 <br>
 </br>
@@ -169,6 +175,7 @@ The following are some visualizations taken from the index.ipynb file. These wer
 In summary, we found the following insights as a result of our exploratory data analysis:
 
 ##### <ins>*High Level Data Findings*</ins>
+<br>
 
 - The dataset has features which can broadly be categorized as:
 
@@ -187,6 +194,7 @@ In summary, we found the following insights as a result of our exploratory data 
     -Note: the 'pcontact' feature is considered seperate from the other features when evaluating missing data because most customers contacted have not been contacted before. This is likely why the pcontact category contains by far the most 'unknown' values
 
 ##### <ins>*Feature Findings*</ins>
+<br>
 
 - The average age is around 30, with the majority of customers being between 30 and 40 years old
 <br>
@@ -225,6 +233,7 @@ In summary, we found the following insights as a result of our exploratory data 
 In order to prepare the data for modeling, we will perform the following steps:
 
 ##### <ins>*Before the train / test split*</ins>
+<br>
 
 1. *Cast object data types as the category data type and ordinate the categories where applicable*
     - We will cast the object data types as the category data type to save memory and improve performance
@@ -237,11 +246,13 @@ In order to prepare the data for modeling, we will perform the following steps:
     - We will drop the 'default' feature because it is contains many missing values and is not heavily correlated with the target variable
 
 ##### <ins>*Train / test split*</ins>
+<br>
 
 3. *Split data into train and test sets*
     - We will split the data into train and test sets using an 80/20 split
 
 ##### <ins>*After the train / test split*</ins>
+<br>
 
 4. *Perform SMOTE oversampling on the train set*
     - We will perform SMOTE oversampling on the train set to balance the target variable
@@ -261,8 +272,10 @@ In order to prepare the data for modeling, we will perform the following steps:
 <a id='baseline-model'></a>
 
 ## **Modeling Considerations and Baseline Model**
+<br>
 
 ##### <ins>*Modeling Considerations*</ins>
+<br>
 
 Our primary metric for evaluating our models will be **recall**, as we want to minimize the number of customers who would subscribe to a term deposit that we do not contact. 
 
@@ -458,11 +471,12 @@ Our high level workflow will be as follows:
     <img src="Images/summary.png" style="width: 35%; border-radius: 10px;"/>
 </div>
 
-<a id='conclusion'></a>
+<a id='finale'></a>
 
 ## **Conclusion and Next Steps**
 
 ##### <ins>*High-Level Summary*</ins>
+<br>
 
 In this project, we were able to utilize the dataset from a Portuguese bank to develop a model that can predict whether or not a customer will subscribe to a term deposit.
 <br>
@@ -476,6 +490,7 @@ While there were not many existing features that were relevant in determining if
 We were also able to develop a no code app that can be used by the marketing team to determine the probability an interaction will result in a customer subscribing to a term deposit. The app can be deployed locally on machines, however there are some limitations to the app that would need to be addressed if it were to be deployed in a real-life scenario.
 
 ##### <ins>*Next Steps*</ins>
+<br>
 
 If this were a real-life project and were to be deployed to the marketing team, there are a few next steps that would need to be taken to ensure the model is being used effectively and is helping the marketing team achieve its goals:
 
@@ -485,12 +500,13 @@ If this were a real-life project and were to be deployed to the marketing team, 
 
 - **Have the model automatically retrain itself** - If the app is deployed, the model will need to be retrained on a regular basis to ensure it is up to date with the latest data. If there was an established workflow around using the app and the necessary code is written, the model could be retrained automatically on a regular basis.
 
+<a id='structure'></a>
+
 ## **Structure of this Repo**
 
 This is the README file. The repo is structured as follows:
 
-- **__pycache__** - Contains the cache files used to develop files. Does not contain substantial information
-- **.vscode** - Contains vscode settings. Does not contain substantial information
+
 - **App** - Contains the code used to develop the app
 - **Data** - Contains the data used for this project
 - **Images** - Contains the images used in the README and index file
