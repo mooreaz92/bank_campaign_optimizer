@@ -33,9 +33,9 @@
 
 ## **README Introduction**
 
-This README is a summary of the technical notebook associated with this project, which can be found at "index.ipynb". README is design to provide an overview of the project, its vizualizations, and its conclusions. The technical notebook provides a more in depth look at the project, including code, data cleaning, and modeling.
+This README is a summary of the technical notebook associated with this project, which can be found at "index.ipynb". This README is designed to provide an overview of the project, its visualizations, and its conclusions. The technical notebook provides a more in depth look at the project, including code, data cleaning, and modeling iterations.
 
-This machine learning project does a deep dive into a bank marketing dataset to understand what featuers are most important to a marketing campaign's success, and then uses that uderstanding to build an optimized model and deploy that model to end users
+This machine learning project does a deep dive into a bank marketing dataset to understand what features are most important to a marketing campaign's success, and then uses that understanding to build an optimized model and deploy that model to end users
 
 The project has the following objectives:
 
@@ -79,13 +79,13 @@ Note that missing data in this dataset is denoted in two ways per the dataset do
 
 
 
-We will handle these missing values in the **Data Preprocessing** section but have special considerations for visualizing them in the exploratory data analysis code below
+We will handle these missing values in the **Data Preprocessing** section but have some special considerations for visualizing them in the visualizations below. See the index.ipynb file for more details.
 
 <br>
 </br>
 
 <div style="text-align:center">
-    <img src="Images/results_analysis.jpg" style="width: 30%; border-radius: 10px;"/>
+    <img src="Images/results_analysis.jpg" style="width: 50%; border-radius: 10px;"/>
 </div>
 
 <a id='Exploratory Data Analysis: Summary'></a>
@@ -94,7 +94,7 @@ We will handle these missing values in the **Data Preprocessing** section but ha
 
 ## **Exploratory Data Analysis: Illustrations and Summary**
 
-The following are some visualizations taken from the index.ipynb file. These were used to help us understand the data and its features and their distributions. We started with all the features and their distributions, and then focused on the features and distributions of the subset where the customer subscribed to a term deposit.
+The following are the EDA visualizations taken from the index.ipynb file. These were used to help us understand the data and its features and their distributions. We started with all the features and their distributions, and then focused on the features and distributions of the subset where the customer subscribed to a term deposit.
 
 ##### <ins>*Evaluating for missing values*</ins>
 <br>
@@ -159,7 +159,7 @@ The following are some visualizations taken from the index.ipynb file. These wer
 <br>
 </br>
 
-##### <ins>*Investigating Colinearity Between Features*</ins>
+##### <ins>*Investigating Collinearity Between Features*</ins>
 <br>
 </br>
 <div style="text-align:center">
@@ -188,10 +188,10 @@ In summary, we found the following insights as a result of our exploratory data 
 
 - The dataset is mostly complete, with only 1% of records having missing data excluding the default and pcontact category. Of that 1%, half have one missing field and most others have two. Records missing more than two fields are rare
 
-    - Note: the 'default' feature is considered seperate from the other features when evaluating missing data because this category likely extends to if the customer has defaulted credit **anywhere**, not just with the bank running the campaign. This is likely a very sensative topic and the call center agents may not have been advised to ask about it. This is likely why the default category contains by far the most 'unknown' values
+    - Note: the 'default' feature is considered separate from the other features when evaluating missing data because this category likely extends to if the customer has defaulted credit **anywhere**, not just with the bank running the campaign. This is likely a very sensitive topic and the call center agents may not have been advised to ask about it. This is likely why the default category contains by far the most 'unknown' values
     <br>
     </br>
-    -Note: the 'pcontact' feature is considered seperate from the other features when evaluating missing data because most customers contacted have not been contacted before. This is likely why the pcontact category contains by far the most 'unknown' values
+    -Note: the 'pcontact' feature is considered separate from the other features when evaluating missing data because most customers contacted have not been contacted before. This is likely why the pcontact category contains by far the most 'unknown' values
 
 ##### <ins>*Feature Findings*</ins>
 <br>
@@ -202,7 +202,7 @@ In summary, we found the following insights as a result of our exploratory data 
 - The majority of customers are highly educated and have families
 <br>
 </br>
-- The the job feature is very vague, with most customers having an 'admin' or 'blue collar' job
+- The job feature is very vague, with most customers having an 'admin' or 'blue collar' job
 <br>
 </br>
 - The majority of customers have not been contacted before, and the majority of customers have been contacted less than 5 times
@@ -241,6 +241,7 @@ In order to prepare the data for modeling, we will perform the following steps:
         - For example, we will ordinate the 'education' feature from least to most education
 <br>
 </br>
+
 2. *Drop features*
     - We will drop the 'duration' feature because it is not known before a call is performed
     - We will drop the 'default' feature because it is contains many missing values and is not heavily correlated with the target variable
@@ -258,15 +259,19 @@ In order to prepare the data for modeling, we will perform the following steps:
     - We will perform SMOTE oversampling on the train set to balance the target variable
 <br>
 </br>
+
 5. *Encode categorical features*
     - We will encode the categorical features using a one-hot encoding function
 <br>
 </br>
+
 6. *Scale numerical features*
     - We will scale the numerical features using the standard scaler
 
+<br>
+
 <div style="text-align:center">
-    <img src="Images/modeling.png" style="width: 30%; border-radius: 10px;"/>
+    <img src="Images/modeling.png" style="width: 50%; border-radius: 10px;"/>
 </div>
 
 <a id='baseline-model'></a>
@@ -279,7 +284,7 @@ In order to prepare the data for modeling, we will perform the following steps:
 
 Our primary metric for evaluating our models will be **recall**, as we want to minimize the number of customers who would subscribe to a term deposit that we do not contact. 
 
-From a marketing strategy perspective, we are not very sensative to false positives, as we would rather contact a customer who would not subscribe to a term deposit than not contact a customer who would subscribe to a term deposit. A false positive is just a cold-call that does not result in any new business, which as we saw in our target variable EDA, tends to happen most of the time.
+From a marketing strategy perspective, we are not very sensitive to false positives, as we would rather contact a customer who would not subscribe to a term deposit than not contact a customer who would subscribe to a term deposit. A false positive is just a cold-call that does not result in any new business, which as we saw in our target variable EDA, tends to happen most of the time.
 
 No call center is perfect but this machine learning method would at least point the call center in the right direction in terms of who to contact first so time is not wasted with low probability cold-calls. 
 
@@ -410,7 +415,7 @@ There are a couple of reasons why the model may not be using the features in the
 <br>
 </br>
     - The customer's current financial situation is another important missing factor. If the customer is in a good financial situation with a solid balance sheet, they are more likely to subscribe to a term deposit as they are more likely to have the liquid assets to invest. 
-    - We could only loosely infer this based off of the customer's education level and job. This is not a good way to determine the customer's current financial situation for two reasons: 
+    - We could only loosely infer this based on the customer's education level and job. This is not a good way to determine the customer's current financial situation for two reasons: 
         - A customer with a high education level and a high paying job could still be in a bad financial situation if they have a lot of debt from student loans or a mortgage, and
         - As we saw in the EDA, the education level and job are categorical variables that within themselves could have a lot of variation not detailed in this dataset (i.e., many of the jobs were just labeled 'admin' or 'blue-collar' and not specific enough to determine the customer's financial situation)
 <br>
@@ -419,7 +424,7 @@ There are a couple of reasons why the model may not be using the features in the
 <br>
 </br>
     - The customer's current financial goals are likely the third most important factor in determining whether or not a customer will subscribe to a term deposit and it is not included in the dataset. If the customer is looking to invest in a term deposit to save for retirement, they are more likely to subscribe to a term deposit. 
-    - We could only loosely infer this based off of the customer's age. This is not a good way to determine the customer's current financial goals for two reasons: 
+    - We could only loosely infer this based on the customer's age. This is not a good way to determine the customer's current financial goals for two reasons: 
         - A customer's age does not necessarily correlate with their financial goals, and
         - The customer's age is a continuous variable that within itself could have a lot of variation not detailed in this dataset (i.e., a customer could be 30 years old and be saving for retirement, or a customer could be 60 years old and be saving for a down payment on a new house)
 
@@ -439,7 +444,7 @@ Our final model had the following scores:
 
 The final model is a significant improvement over the baseline model, as it can predict 73% of the customers who would subscribe to a term deposit. 
 
-Since we optimized for recall and minimized false negatives (model predicts they wont, when in reality they will), the call center will cast a wider net over its customer base and contact more customers who may subscribe to a term deposit at the cost of some additional false positives (model predicts they will, when in reality they don't). 
+Since we optimized for recall and minimized false negatives (model predicts they won't, when in reality they will), the call center will cast a wider net over its customer base and contact more customers who may subscribe to a term deposit at the cost of some additional false positives (model predicts they will, when in reality they don't). 
 
 After all, it is less costly to spend a few minutes trying to contact and sell a term deposit to a customer than it is to miss out on potential business.
 
@@ -512,3 +517,4 @@ This is the README file. The repo is structured as follows:
 - **Images** - Contains the images used in the README and index file
 - **index.ipynb** - Contains the analysis seen in this readme as well as the code used to develop everything mentioned in this readme
 - **presentation.pdf** - Contains the non-technical slides used to present this project
+
