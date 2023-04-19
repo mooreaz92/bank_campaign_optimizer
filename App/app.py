@@ -3,8 +3,10 @@ import pandas as pd
 import streamlit as st
 from functions import *
 
+st.set_page_config(page_title='Call Center Lead Predictor', page_icon=':telephone_receiver:', layout='centered', initial_sidebar_state='auto')
+
 # Create a Streamlit app that allows the user to upload a CSV file
-st.title("Model Predictions")
+st.title("Call Center Lead Predictor")
 st.write("Upload your list of leads to get the probability of a lead subscribing to a term deposit.")
 
 # Load the model from the pickle file
@@ -33,15 +35,16 @@ if uploaded_file is not None:
     df_copy['predictions'] = predictions
     df_copy['probabilities'] = model.predict_proba(df_cleaned)[:, 1]
 
-    # Display the probabilities of the predictions across three labeled bins
+    # Display the count of the predictions across three bins, and label the column 'Count of Leads', and suppress the warnings
 
-    st.write("Probabilities of predictions:")
-    st.write(pd.cut(df_copy['probabilities'], bins=3, labels=['Low', 'Medium', 'High']).value_counts())
+    prob_df = pd.cut(df_copy['probabilities'], bins=3, labels=['Low', 'Medium', 'High']).value_counts().to_frame(name='Count of Leads')
 
-    # Display some useful metrics about the predictions
+    st.write("Leads by probability:")
+    st.write(prob_df)
 
-    st.write("Mean probability of predictions:", df_copy['probabilities'].mean())
+    # Supressing warnings in the Streamlit app
 
+    st.set_option('deprecation.showPyplotGlobalUse', False)
 
     # Allow the user to download the DataFrame with the predictions as a CSV file
 
